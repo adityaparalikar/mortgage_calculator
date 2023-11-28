@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from mortgage_calc.views import MortgageViewSet, MortgageCreateView
+
+router = routers.DefaultRouter()
+router.register('mortgage', MortgageViewSet)
+#router.register('mortgage/create', MortgageCreateView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('mortgage_calc.urls')),
+    path('', include(router.urls)),
+    path('mortgage/create/', MortgageCreateView.as_view(), name='mortgage-create'),
 ]

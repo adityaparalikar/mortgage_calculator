@@ -4,4 +4,4 @@ from .models import Mortgage
 class MortgageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mortgage
-        fields = '__all__'
+        fields = ['id', 'loan_amount', 'down_payment', 'interest_rate', 'loan_term']

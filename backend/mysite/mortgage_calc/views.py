@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework import viewsets
 from .models import Mortgage
 from .serializers import MortgageSerializer
 from django.http import JsonResponse
 
 # Create your views here.
+
+class MortgageViewSet(viewsets.ModelViewSet):
+    queryset = Mortgage.objects.all()
+    serializer_class = MortgageSerializer
 
 class MortgageCreateView(generics.CreateAPIView):
     queryset = Mortgage.objects.all()
