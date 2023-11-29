@@ -16,6 +16,7 @@ class MortgageCreateView(generics.CreateAPIView):
     serializer_class = MortgageSerializer
 
     def create(self, request, *args, **kwargs):
+        print("Request data:", request.data)
         response = super().create(request, *args, **kwargs)
         mortgage = response.data
         monthly_payment = self.calculate_monthly_payment(
