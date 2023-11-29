@@ -27,7 +27,7 @@ router.register('mortgage', MortgageViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('mortgage/create/', MortgageCreateView.as_view(), name='create_mortgage'),
+    path('create/', MortgageCreateView.as_view(), name='create_mortgage'),
 ]
 
 print("URL patterns:", urlpatterns)
