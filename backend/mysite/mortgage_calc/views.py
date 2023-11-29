@@ -6,6 +6,7 @@ from .serializers import MortgageSerializer
 from django.http import JsonResponse
 
 # Create your views here.
+print("Inside views.py")
 
 class MortgageViewSet(viewsets.ModelViewSet):
     queryset = Mortgage.objects.all()
@@ -16,6 +17,7 @@ class MortgageCreateView(generics.CreateAPIView):
     serializer_class = MortgageSerializer
 
     def create(self, request, *args, **kwargs):
+        print("Inside create method")
         print("Request data:", request.data)
         response = super().create(request, *args, **kwargs)
         mortgage = response.data
@@ -25,10 +27,13 @@ class MortgageCreateView(generics.CreateAPIView):
             mortgage['interest_rate'],
             mortgage['loan_term']
         )
+        
+        print("Monthly Payment:", monthly_payment)
         mortgage['monthly_payment'] = monthly_payment
         return JsonResponse({'message': 'Mortgage details saved successfully!', 'mortgage': mortgage})
 
     def calculate_monthly_payment(self, loan_amount, down_payment, interest_rate, loan_term):
+        import pdb; pdb.set_trace()
         principal = loan_amount - down_payment
         monthly_interest_rate = (interest_rate / 100) / 12
         num_payments = loan_term * 12
@@ -37,4 +42,6 @@ class MortgageCreateView(generics.CreateAPIView):
             principal * monthly_interest_rate /
             (1 - (1 + monthly_interest_rate) ** -num_payments)
         )
+        
+        print("Monthly Payment:", monthly_payment)
         return round(monthly_payment, 2)

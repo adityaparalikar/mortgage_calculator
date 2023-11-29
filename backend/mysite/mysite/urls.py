@@ -18,12 +18,16 @@ from django.urls import path, include
 from rest_framework import routers
 from mortgage_calc.views import MortgageViewSet, MortgageCreateView
 
-router = routers.DefaultRouter()
+print("Inside urls.py")
+
+router = routers.SimpleRouter()
 router.register('mortgage', MortgageViewSet)
-#router.register('mortgage/create', MortgageCreateView)
+#router.register('create', MortgageCreateView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('mortgage/create/', MortgageCreateView.as_view(), name='mortgage-create'),
+    path('mortgage/create/', MortgageCreateView.as_view(), name='create_mortgage'),
 ]
+
+print("URL patterns:", urlpatterns)
