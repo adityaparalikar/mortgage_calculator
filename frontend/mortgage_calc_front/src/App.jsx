@@ -11,6 +11,7 @@ function App() {
 
   const [result, setResult] = useState(null);
   const [errors, setErrors] = useState({});
+  const [djangoData, setDjangoData] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,9 +60,9 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sending data:", mortgageDetails);
 
     if (!validateForm()) {
+      setResult("Please fill out all required fields with valid values.");
       return;
     }
 
@@ -73,14 +74,14 @@ function App() {
         },
         body: JSON.stringify(mortgageDetails),
       });
-      console.log("Sent Data: ", mortgageDetails);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(
+          "Failed to submit mortgage details. Please try again later."
+        );
       }
 
       const data = await response.json();
-      console.log("Response:", data);
 
       setMortgageDetails({
         loan_amount: "",
@@ -91,10 +92,17 @@ function App() {
 
       setErrors({});
 
-      setResult(data.message);
+      if (data && data.mortgage) {
+        setResult(`Monthly Payment: $${data.mortgage.monthly_payment}\n`);
+        setDjangoData(data.mortgage);
+      } else {
+        setResult(
+          "No mortgage details available. Please check your input and try again."
+        );
+      }
     } catch (error) {
       console.error("Error:", error);
-      setResult("Error submitting mortgage details.");
+      setResult("An unexpected error occurred. Please try again later.");
     }
   };
 
@@ -151,10 +159,10 @@ function App() {
       {result && (
         <div>
           <p>{result}</p>
-          {response.mortgage ? (
-            <p>Monthly Payment: ${response.mortgage.monthly_payment}</p>
+          {djangoData && djangoData.mortgage ? (
+            <p>Monthly Payment: ${djangoData.mortgage.monthly_payment}</p>
           ) : (
-            <p>No mortgage details available</p>
+            <p>Thanks for Visiting The Mortgage Calculator!</p>
           )}
         </div>
       )}

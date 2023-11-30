@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .models import Mortgage
 from .serializers import MortgageSerializer
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from decimal import Decimal    
 
 # Create your views here.
 print("Inside views.py")
@@ -34,9 +34,9 @@ class MortgageCreateView(generics.CreateAPIView):
         return JsonResponse({'message': 'Mortgage details saved successfully!', 'mortgage': mortgage})
 
     def calculate_monthly_payment(self, loan_amount, down_payment, interest_rate, loan_term):
-        principal = float(loan_amount) - float(down_payment)
-        monthly_interest_rate = (float(interest_rate) / 100) / 12
-        num_payments = float(loan_term) * 12
+        principal = Decimal(loan_amount) - Decimal(down_payment)
+        monthly_interest_rate = (Decimal(interest_rate) / 100) / 12
+        num_payments = Decimal(loan_term) * 12
 
         monthly_payment = (
             principal * monthly_interest_rate /
