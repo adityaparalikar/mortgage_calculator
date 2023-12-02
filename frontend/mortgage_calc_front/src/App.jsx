@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import Amortization from "./components/Amortization";
 
 function App() {
   const [mortgageDetails, setMortgageDetails] = useState({
@@ -12,6 +13,9 @@ function App() {
   const [result, setResult] = useState(null);
   const [errors, setErrors] = useState({});
   const [djangoData, setDjangoData] = useState(null);
+  const [amortizationSchedule, setAmortizationSchedule] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,8 +97,15 @@ function App() {
       setErrors({});
 
       if (data && data.mortgage) {
+        const remainingAmount =
+          data.mortgage.total_amount - data.mortgage.monthly_payment;
         setResult(`Monthly Payment: $${data.mortgage.monthly_payment}\n`);
         setDjangoData(data.mortgage);
+        if (data.mortgage.amortization_schedule) {
+          setAmortizationSchedule(data.mortgage.amortization_schedule);
+        }
+
+        setFormSubmitted(true);
       } else {
         setResult(
           "No mortgage details available. Please check your input and try again."
@@ -103,6 +114,8 @@ function App() {
     } catch (error) {
       console.error("Error:", error);
       setResult("An unexpected error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -156,6 +169,7 @@ function App() {
         <br />
         <button type="submit">Calculate</button>
       </form>
+      {loading && <p>Loading...</p>}
       {result && (
         <div>
           <p>{result}</p>
@@ -165,6 +179,9 @@ function App() {
             <p>Thanks for Visiting The Mortgage Calculator!</p>
           )}
         </div>
+      )}
+      {formSubmitted && amortizationSchedule.length > 0 && (
+        <Amortization amortizationSchedule={amortizationSchedule} />
       )}
     </div>
   );

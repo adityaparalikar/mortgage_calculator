@@ -18,8 +18,6 @@ from django.urls import path, include
 from rest_framework import routers
 from mortgage_calc.views import MortgageViewSet, MortgageCreateView
 
-print("Inside urls.py")
-
 router = routers.SimpleRouter()
 router.register('mortgage', MortgageViewSet)
 #router.register('create', MortgageCreateView)
@@ -29,5 +27,3 @@ urlpatterns = [
     path('', include(router.urls)),
     path('create/', MortgageCreateView.as_view(), name='create_mortgage'),
 ]
-
-print("URL patterns:", urlpatterns)
