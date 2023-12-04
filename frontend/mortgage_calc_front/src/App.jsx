@@ -130,6 +130,7 @@ function App() {
             name="loan_amount"
             value={mortgageDetails.loan_amount}
             onChange={handleChange}
+            placeholder="$"
           />
           <p className="error">{errors.loan_amount}</p>
         </label>
@@ -141,6 +142,7 @@ function App() {
             name="down_payment"
             value={mortgageDetails.down_payment}
             onChange={handleChange}
+            placeholder="$"
           />
           <p className="error">{errors.down_payment}</p>
         </label>
@@ -152,6 +154,7 @@ function App() {
             name="interest_rate"
             value={mortgageDetails.interest_rate}
             onChange={handleChange}
+            placeholder="%"
           />
           <p className="error">{errors.interest_rate}</p>
         </label>
@@ -173,10 +176,8 @@ function App() {
       {result && (
         <div>
           <p>{result}</p>
-          {djangoData && djangoData.mortgage ? (
+          {djangoData && djangoData.mortgage && (
             <p>Monthly Payment: ${djangoData.mortgage.monthly_payment}</p>
-          ) : (
-            <p>Thanks for Visiting The Mortgage Calculator!</p>
           )}
         </div>
       )}

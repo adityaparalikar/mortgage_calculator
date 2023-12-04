@@ -16,7 +16,6 @@ class MortgageCreateView(generics.CreateAPIView):
     serializer_class = MortgageSerializer
 
     def create(self, request, *args, **kwargs):
-        print("Request data:", request.data)
         response = super().create(request, *args, **kwargs)
         mortgage = response.data
         monthly_payment, amortization_schedule = self.calculate_monthly_payment(
@@ -57,7 +56,4 @@ class MortgageCreateView(generics.CreateAPIView):
                 'total_payment': monthly_payment,
                 'remaining_amount': round(remaining_amount, 2),
             })
-        
-        print("Monthly Payment:", monthly_payment)
-        print("Amortization: ", amortization_schedule)
         return monthly_payment, amortization_schedule
