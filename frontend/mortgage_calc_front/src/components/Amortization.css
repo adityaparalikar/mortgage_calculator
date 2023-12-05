@@ -27,3 +27,27 @@ td {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.pagination a {
+  cursor: pointer;
+  padding: 8px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  text-decoration: none;
+  background-color: #03ac08;
+}
+
+.pagination a.active {
+  background-color: #03ac08;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #4caf50;
+}
