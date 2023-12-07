@@ -6,6 +6,11 @@ import { useState } from "react";
 const Amortization = ({ amortizationSchedule }) => {
   const itemsPerPage = 20;
   const [currentPage, setCurrentPage] = useState(0);
+  const [activeTab, setActiveTab] = useState("table");
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -23,29 +28,45 @@ const Amortization = ({ amortizationSchedule }) => {
   return (
     <div>
       <h2>Amortization Schedule</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Payment #</th>
-            <th>Principal</th>
-            <th>Interest</th>
-            <th>Total Payment</th>
-            <th>Remaining Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems.map((payment) => (
-            <tr key={payment.payment_number}>
-              <td>{payment.payment_number}</td>
-              <td>${payment.principal}</td>
-              <td>${payment.interest}</td>
-              <td>${payment.total_payment}</td>
-              <td>${payment.remaining_amount}</td>
+      <div className="tab-buttons">
+        <button
+          onClick={() => handleTabClick("table")}
+          className={activeTab === "table" ? "active" : ""}
+        >
+          Table
+        </button>
+        <button
+          onClick={() => handleTabClick("graph")}
+          className={activeTab === "graph" ? "active" : ""}
+        >
+          Graph
+        </button>
+      </div>
+      {activeTab === "table" && (
+        <table>
+          <thead>
+            <tr>
+              <th>Payment #</th>
+              <th>Principal</th>
+              <th>Interest</th>
+              <th>Total Payment</th>
+              <th>Remaining Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      {pageCount > 1 && (
+          </thead>
+          <tbody>
+            {currentItems.map((payment) => (
+              <tr key={payment.payment_number}>
+                <td>{payment.payment_number}</td>
+                <td>${payment.principal}</td>
+                <td>${payment.interest}</td>
+                <td>${payment.total_payment}</td>
+                <td>${payment.remaining_amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {activeTab === "table" && pageCount > 1 && (
         <ReactPaginate
           pageCount={pageCount}
           marginPagesDisplayed={2}
@@ -54,6 +75,11 @@ const Amortization = ({ amortizationSchedule }) => {
           containerClassName="pagination"
           activeClassName="active"
         />
+      )}
+      {activeTab === "graph" && (
+        <div>
+          <p>This is the Graph content</p>
+        </div>
       )}
     </div>
   );

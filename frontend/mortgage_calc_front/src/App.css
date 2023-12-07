@@ -1,21 +1,10 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 @keyframes logo-spin {
@@ -59,11 +48,14 @@ body {
   background-color: white;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   text-align: center;
   color: white;
   background-color: #4caf50;
   border-color: black;
+  font-size: 1.8rem;
 }
 
 form {
@@ -114,4 +106,8 @@ button:hover {
 .error {
   color: #f00;
   font-size: 14px;
+}
+
+.monthly-payment {
+  font-size: 2rem;
 }

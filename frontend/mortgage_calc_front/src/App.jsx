@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import Amortization from "./components/Amortization";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const [mortgageDetails, setMortgageDetails] = useState({
@@ -27,13 +29,11 @@ function App() {
     let valid = true;
     const newErrors = {};
 
-    // Validate loan_amount
     if (!mortgageDetails.loan_amount || isNaN(mortgageDetails.loan_amount)) {
       newErrors.loan_amount = "Please enter a valid loan amount.";
       valid = false;
     }
 
-    // Validate down_payment
     if (
       (mortgageDetails.down_payment !== "" &&
         isNaN(mortgageDetails.down_payment)) ||
@@ -43,7 +43,6 @@ function App() {
       valid = false;
     }
 
-    // Validate interest_rate
     if (
       !mortgageDetails.interest_rate ||
       isNaN(mortgageDetails.interest_rate)
@@ -52,7 +51,6 @@ function App() {
       valid = false;
     }
 
-    // Validate loan_term
     if (!mortgageDetails.loan_term || isNaN(mortgageDetails.loan_term)) {
       newErrors.loan_term = "Please enter a valid loan term.";
       valid = false;
@@ -120,70 +118,74 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Mortgage Payment Calculator</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Loan Amount:
-          <input
-            type="number"
-            name="loan_amount"
-            value={mortgageDetails.loan_amount}
-            onChange={handleChange}
-            placeholder="$"
-          />
-          <p className="error">{errors.loan_amount}</p>
-        </label>
-        <br />
-        <label>
-          Down Payment:
-          <input
-            type="number"
-            name="down_payment"
-            value={mortgageDetails.down_payment}
-            onChange={handleChange}
-            placeholder="$"
-          />
-          <p className="error">{errors.down_payment}</p>
-        </label>
-        <br />
-        <label>
-          Interest Rate:
-          <input
-            type="number"
-            name="interest_rate"
-            value={mortgageDetails.interest_rate}
-            onChange={handleChange}
-            placeholder="%"
-          />
-          <p className="error">{errors.interest_rate}</p>
-        </label>
-        <br />
-        <label>
-          Loan Term (in years):
-          <input
-            type="number"
-            name="loan_term"
-            value={mortgageDetails.loan_term}
-            onChange={handleChange}
-          />
-          <p className="error">{errors.loan_term}</p>
-        </label>
-        <br />
-        <button type="submit">Calculate</button>
-      </form>
-      {loading && <p>Loading...</p>}
-      {result && (
-        <div>
-          <p>{result}</p>
-          {djangoData && djangoData.mortgage && (
-            <p>Monthly Payment: ${djangoData.mortgage.monthly_payment}</p>
-          )}
-        </div>
-      )}
-      {formSubmitted && amortizationSchedule.length > 0 && (
-        <Amortization amortizationSchedule={amortizationSchedule} />
-      )}
+    <div>
+      <Header />
+      <div className="App">
+        <h2>Mortgage Payment Calculator</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Loan Amount:
+            <input
+              type="number"
+              name="loan_amount"
+              value={mortgageDetails.loan_amount}
+              onChange={handleChange}
+              placeholder="$"
+            />
+            <p className="error">{errors.loan_amount}</p>
+          </label>
+          <br />
+          <label>
+            Down Payment:
+            <input
+              type="number"
+              name="down_payment"
+              value={mortgageDetails.down_payment}
+              onChange={handleChange}
+              placeholder="$"
+            />
+            <p className="error">{errors.down_payment}</p>
+          </label>
+          <br />
+          <label>
+            Interest Rate:
+            <input
+              type="number"
+              name="interest_rate"
+              value={mortgageDetails.interest_rate}
+              onChange={handleChange}
+              placeholder="%"
+            />
+            <p className="error">{errors.interest_rate}</p>
+          </label>
+          <br />
+          <label>
+            Loan Term (in years):
+            <input
+              type="number"
+              name="loan_term"
+              value={mortgageDetails.loan_term}
+              onChange={handleChange}
+            />
+            <p className="error">{errors.loan_term}</p>
+          </label>
+          <br />
+          <button type="submit">Calculate</button>
+        </form>
+        {loading && <p>Loading...</p>}
+        {result && (
+          <div className="result">
+            <p className="monthly-payment">{result}</p>
+            {djangoData && djangoData.mortgage && (
+              <p>Monthly Payment: ${djangoData.mortgage.monthly_payment}</p>
+            )}
+          </div>
+        )}
+        {formSubmitted && amortizationSchedule.length > 0 && (
+          <Amortization amortizationSchedule={amortizationSchedule} />
+        )}
+      </div>
+      <Footer />
     </div>
   );
 }
