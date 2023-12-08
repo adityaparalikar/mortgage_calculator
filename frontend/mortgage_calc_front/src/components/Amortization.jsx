@@ -2,6 +2,8 @@ import React from "react";
 import "./Amortization.css";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
+import Chart from "chart.js/auto";
+import { Line } from "react-chartjs-2";
 
 const Amortization = ({ amortizationSchedule }) => {
   const itemsPerPage = 20;
@@ -24,6 +26,9 @@ const Amortization = ({ amortizationSchedule }) => {
   );
 
   const pageCount = Math.ceil(amortizationSchedule.length / itemsPerPage);
+  const years = amortizationSchedule.map(
+    (payment) => Math.floor(payment.payment_number / 12) + 1
+  );
 
   return (
     <div>
@@ -78,7 +83,32 @@ const Amortization = ({ amortizationSchedule }) => {
       )}
       {activeTab === "graph" && (
         <div>
-          <p>This is the Graph content</p>
+          <Line
+            data={{
+              labels: years,
+              datasets: [
+                {
+                  label: "Principal",
+                  borderColor: "#4caf50",
+                  data: amortizationSchedule.map(
+                    (payment) => payment.principal
+                  ),
+                },
+                {
+                  label: "Interest",
+                  borderColor: "blue",
+                  data: amortizationSchedule.map((payment) => payment.interest),
+                },
+                {
+                  label: "Loan Balance",
+                  borderColor: "orange",
+                  data: amortizationSchedule.map(
+                    (payment) => payment.remaining_amount
+                  ),
+                },
+              ],
+            }}
+          />
         </div>
       )}
     </div>
