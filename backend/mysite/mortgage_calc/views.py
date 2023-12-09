@@ -42,12 +42,19 @@ class MortgageCreateView(generics.CreateAPIView):
         
         amortization_schedule = []
         remaining_amount = principal
+        total_principal = Decimal('0.00')
+        total_interest = Decimal('0.00')
 
         for payment_number in range(1, int(num_payments) + 1):
             interest_payment = remaining_amount * monthly_interest_rate
             principal_payment = monthly_payment - interest_payment
 
             remaining_amount -= principal_payment
+            total_principal += principal_payment
+            total_interest += interest_payment  
+
+            if remaining_amount < 0:
+                remaining_amount = Decimal('0.00')
 
             amortization_schedule.append({
                 'payment_number': payment_number,
@@ -55,5 +62,8 @@ class MortgageCreateView(generics.CreateAPIView):
                 'interest': round(interest_payment, 2),
                 'total_payment': monthly_payment,
                 'remaining_amount': round(remaining_amount, 2),
+                'total_principal': round(total_principal, 2),
+                'total_interest': round(total_interest, 2),
             })
+        
         return monthly_payment, amortization_schedule

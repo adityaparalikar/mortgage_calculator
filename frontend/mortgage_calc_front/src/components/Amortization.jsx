@@ -2,8 +2,27 @@ import React from "react";
 import "./Amortization.css";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Amortization = ({ amortizationSchedule }) => {
   const itemsPerPage = 20;
@@ -88,19 +107,21 @@ const Amortization = ({ amortizationSchedule }) => {
               labels: years,
               datasets: [
                 {
-                  label: "Principal",
+                  label: "Total Principal Paid",
                   borderColor: "#4caf50",
                   data: amortizationSchedule.map(
-                    (payment) => payment.principal
+                    (payment) => payment.total_principal
                   ),
                 },
                 {
-                  label: "Interest",
+                  label: "Total Interest Paid",
                   borderColor: "blue",
-                  data: amortizationSchedule.map((payment) => payment.interest),
+                  data: amortizationSchedule.map(
+                    (payment) => payment.total_interest
+                  ),
                 },
                 {
-                  label: "Loan Balance",
+                  label: "Remaining Loan Balance",
                   borderColor: "orange",
                   data: amortizationSchedule.map(
                     (payment) => payment.remaining_amount
