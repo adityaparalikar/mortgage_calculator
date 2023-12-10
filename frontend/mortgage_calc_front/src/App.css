@@ -53,9 +53,13 @@ h2,
 h3 {
   text-align: center;
   color: white;
-  background-color: #4caf50;
+  background-color: #1e324b;
   border-color: black;
   font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 2.3rem;
 }
 
 form {
@@ -100,7 +104,8 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #007bff;
+  color: white;
 }
 
 .error {
@@ -110,4 +115,12 @@ button:hover {
 
 .monthly-payment {
   font-size: 2rem;
+}
+
+.submitButton {
+  text-align: center;
+}
+
+table {
+  border-style: none;
 }

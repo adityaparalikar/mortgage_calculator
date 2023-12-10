@@ -4,7 +4,7 @@ div {
 
 h2 {
   text-align: center;
-  color: #333;
+  color: white;
 }
 
 table {
@@ -16,8 +16,10 @@ table {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-thead {
-  background-color: #4caf50;
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background-color: #1e324b;
   color: #fff;
 }
 
@@ -32,6 +34,7 @@ td {
   justify-content: center;
   margin-top: 20px;
   list-style: none;
+  color: white;
 }
 
 .pagination a {
@@ -40,14 +43,13 @@ td {
   margin: 0 5px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  color: #333;
+  color: white;
   text-decoration: none;
-  background-color: #03ac08;
+  background-color: #007bff;
 }
 
 .pagination a.active {
-  background-color: #03ac08;
   color: white;
   font-weight: bold;
-  border: 1px solid #4caf50;
+  border: 1px solid #1e324b;
 }

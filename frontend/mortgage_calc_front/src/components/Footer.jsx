@@ -1,9 +1,10 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer-p">
+    <footer className="footer py-4 p-2">
       <p>© 2023 Mortgage Calculator App</p>
       <div className="contact-info">
         <p>Email: adityaparalikar@mail.weber.edu</p>

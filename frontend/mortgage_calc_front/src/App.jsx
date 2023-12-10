@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Amortization from "./components/Amortization";
 import Header from "./components/Header";
@@ -122,55 +123,76 @@ function App() {
       <Header />
       <div className="App">
         <h2>Mortgage Payment Calculator</h2>
+        <br />
         <form onSubmit={handleSubmit}>
-          <label>
-            Loan Amount:
-            <input
-              type="number"
-              name="loan_amount"
-              value={mortgageDetails.loan_amount}
-              onChange={handleChange}
-              placeholder="$"
-            />
-            <p className="error">{errors.loan_amount}</p>
-          </label>
-          <br />
-          <label>
-            Down Payment:
-            <input
-              type="number"
-              name="down_payment"
-              value={mortgageDetails.down_payment}
-              onChange={handleChange}
-              placeholder="$"
-            />
-            <p className="error">{errors.down_payment}</p>
-          </label>
-          <br />
-          <label>
-            Interest Rate:
-            <input
-              type="number"
-              name="interest_rate"
-              value={mortgageDetails.interest_rate}
-              onChange={handleChange}
-              placeholder="%"
-            />
-            <p className="error">{errors.interest_rate}</p>
-          </label>
-          <br />
-          <label>
-            Loan Term (in years):
-            <input
-              type="number"
-              name="loan_term"
-              value={mortgageDetails.loan_term}
-              onChange={handleChange}
-            />
-            <p className="error">{errors.loan_term}</p>
-          </label>
-          <br />
-          <button type="submit">Calculate</button>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <label>Loan Amount:</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name="loan_amount"
+                    value={mortgageDetails.loan_amount}
+                    onChange={handleChange}
+                    placeholder="$"
+                  />
+                  <p className="error">{errors.loan_amount}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Down Payment:</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name="down_payment"
+                    value={mortgageDetails.down_payment}
+                    onChange={handleChange}
+                    placeholder="$"
+                  />
+                  <p className="error">{errors.down_payment}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Interest Rate:</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name="interest_rate"
+                    value={mortgageDetails.interest_rate}
+                    onChange={handleChange}
+                    placeholder="%"
+                  />
+                  <p className="error">{errors.interest_rate}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Loan Term (in years):</label>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name="loan_term"
+                    value={mortgageDetails.loan_term}
+                    onChange={handleChange}
+                  />
+                  <p className="error">{errors.loan_term}</p>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="submitButton">
+                  <button type="submit">Calculate</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </form>
         {loading && <p>Loading...</p>}
         {result && (

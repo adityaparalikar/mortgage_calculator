@@ -1,6 +1,6 @@
 header {
   width: 100%;
-  background-color: #4caf50;
+  background-color: #1e324b;
   color: white;
   padding: 1rem;
 }
@@ -31,4 +31,5 @@ header {
 
 .future-updates-dropdown:hover .dropdown-content {
   display: block;
+  background-color: white;
 }

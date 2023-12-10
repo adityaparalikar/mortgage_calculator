@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Amortization.css";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
@@ -50,31 +51,32 @@ const Amortization = ({ amortizationSchedule }) => {
   );
 
   return (
-    <div>
-      <h2>Amortization Schedule</h2>
-      <div className="tab-buttons">
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Amortization Schedule</h2>
+      <div className="btn-group" role="group">
         <button
           onClick={() => handleTabClick("table")}
-          className={activeTab === "table" ? "active" : ""}
+          className={activeTab === "table" ? "btn-primary" : "btn-secondary"}
+          style={{ marginRight: "10px" }}
         >
           Table
         </button>
         <button
           onClick={() => handleTabClick("graph")}
-          className={activeTab === "graph" ? "active" : ""}
+          className={activeTab === "graph" ? "btn-primary" : "btn-secondary"}
         >
           Graph
         </button>
       </div>
       {activeTab === "table" && (
-        <table>
+        <table className="table table-striped mt-3">
           <thead>
             <tr>
-              <th>Payment #</th>
-              <th>Principal</th>
-              <th>Interest</th>
-              <th>Total Payment</th>
-              <th>Remaining Amount</th>
+              <th scope="col">Payment #</th>
+              <th scope="col">Principal</th>
+              <th scope="col">Interest</th>
+              <th scope="col">Total Payment</th>
+              <th scope="col">Remaining Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -101,7 +103,7 @@ const Amortization = ({ amortizationSchedule }) => {
         />
       )}
       {activeTab === "graph" && (
-        <div>
+        <div className="mt-3">
           <Line
             data={{
               labels: years,
