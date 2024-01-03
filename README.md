@@ -18,3 +18,6 @@ Frontend: React
 Database: SQLite
 Styling: CSS
 APIs: Django REST Framework
+
+Contact:
+For any inquiries or feedback, please contact paralikaraditya@gmail.com
