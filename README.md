@@ -1,6 +1,5 @@
-Absolutely, I'll incorporate this additional feature into the README.md file. Here's the updated version:
-
 Mortgage Calculator
+
 Overview:
 This project is a web-based mortgage calculator built with Django and React. It enables users to input loan-related details such as loan amount, interest rate, down payment, and loan term to calculate their monthly mortgage payments. Additionally, it provides an amortization schedule in both table and chart formats.
 
